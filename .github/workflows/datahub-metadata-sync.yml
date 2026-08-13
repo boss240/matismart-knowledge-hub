@@ -21,6 +21,29 @@ jobs:
       - name: Install dependencies
         run: pip install -e ".[datahub]"
 
+      - name: Validate required secrets
+        env:
+          DATAHUB_GMS_URL: ${{ secrets.DATAHUB_GMS_URL }}
+          DATAHUB_TOKEN: ${{ secrets.DATAHUB_TOKEN }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+          POSTGRES_USERNAME: ${{ secrets.POSTGRES_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        run: |
+          missing=()
+          for name in DATAHUB_GMS_URL DATAHUB_TOKEN POSTGRES_HOST POSTGRES_PORT POSTGRES_DATABASE POSTGRES_USERNAME POSTGRES_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              missing+=("$name")
+            fi
+          done
+
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Missing required GitHub Actions secrets: ${missing[*]}"
+            echo "Add them in GitHub: Settings -> Secrets and variables -> Actions -> New repository secret."
+            exit 1
+          fi
+
       - name: Ingest PostgreSQL metadata
         env:
           DATAHUB_GMS_URL: ${{ secrets.DATAHUB_GMS_URL }}
@@ -38,4 +61,3 @@ jobs:
           DATAHUB_TOKEN: ${{ secrets.DATAHUB_TOKEN }}
           DATAHUB_ENV: PROD
         run: python datahub/scripts/bootstrap_matismart_datahub.py
-

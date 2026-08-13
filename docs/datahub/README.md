@@ -80,6 +80,20 @@ datahub ingest -c datahub/ingestion/postgres-pgvector.yml
 python datahub/scripts/bootstrap_matismart_datahub.py
 ```
 
+## GitHub Actions secrets
+
+The metadata sync workflow requires these repository secrets:
+
+- `DATAHUB_GMS_URL`: DataHub GMS endpoint, usually `https://<your-datahub-host>/api/gms`.
+- `DATAHUB_TOKEN`: DataHub personal access token or service token.
+- `POSTGRES_HOST`: PostgreSQL host.
+- `POSTGRES_PORT`: PostgreSQL port, usually `5432`.
+- `POSTGRES_DATABASE`: PostgreSQL database name.
+- `POSTGRES_USERNAME`: PostgreSQL metadata reader user.
+- `POSTGRES_PASSWORD`: PostgreSQL metadata reader password.
+
+Add them in GitHub under `Settings -> Secrets and variables -> Actions -> New repository secret`.
+
 ## Validation
 
 After applying metadata, validate in DataHub:
@@ -89,4 +103,3 @@ After applying metadata, validate in DataHub:
 3. Glossary contains source governance, AI governance, and security terms.
 4. PostgreSQL datasets are visible.
 5. Lineage graph shows the full OneDrive to Matismart AI Platform path.
-
