@@ -82,7 +82,12 @@ python datahub/scripts/bootstrap_matismart_datahub.py
 
 ## GitHub Actions secrets
 
-The metadata sync workflow requires these repository secrets:
+The workflow has two modes:
+
+- On `push`, it validates metadata files only. It does not connect to DataHub.
+- On manual `workflow_dispatch` with `apply_to_datahub=true`, it applies metadata to DataHub and requires real repository secrets.
+
+The DataHub apply mode requires these repository secrets:
 
 - `DATAHUB_GMS_URL`: DataHub GMS endpoint, usually `https://<your-datahub-host>/api/gms`.
 - `DATAHUB_TOKEN`: DataHub personal access token or service token.
@@ -93,6 +98,8 @@ The metadata sync workflow requires these repository secrets:
 - `POSTGRES_PASSWORD`: PostgreSQL metadata reader password.
 
 Add them in GitHub under `Settings -> Secrets and variables -> Actions -> New repository secret`.
+
+Do not create empty placeholder secrets. Leave apply mode disabled until the real DataHub and PostgreSQL values are available.
 
 ## Validation
 

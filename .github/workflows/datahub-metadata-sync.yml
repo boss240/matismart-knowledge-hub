@@ -6,10 +6,57 @@ on:
     paths:
       - "datahub/**"
       - ".github/workflows/datahub-metadata-sync.yml"
+      - "docs/datahub/**"
   workflow_dispatch:
+    inputs:
+      apply_to_datahub:
+        description: "Apply metadata to DataHub. Requires real repository secrets."
+        required: true
+        default: false
+        type: boolean
 
 jobs:
+  metadata-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate metadata files
+        run: |
+          pip install pyyaml
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          for path in list(Path("datahub").rglob("*.yml")) + list(Path(".github").rglob("*.yml")):
+              yaml.safe_load(path.read_text(encoding="utf-8"))
+
+          domains = yaml.safe_load(Path("datahub/metadata/domains.yml").read_text(encoding="utf-8"))["domains"]
+          expected = {
+              "Product Knowledge",
+              "Technical Documentation",
+              "Customer Projects",
+              "AI Knowledge",
+              "Energy Assets",
+              "IoT & Tuya",
+              "EMS",
+              "Commercial",
+              "Regulatory",
+          }
+          actual = {domain["name"] for domain in domains}
+          if actual != expected:
+              raise SystemExit(f"Domain mismatch: {sorted(actual ^ expected)}")
+
+          print("Metadata validation passed.")
+          PY
+
   datahub-sync:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.apply_to_datahub }}
+    needs: metadata-validate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
