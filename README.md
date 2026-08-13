@@ -24,7 +24,7 @@ This repository prepares DataHub metadata for:
 cd matismart-knowledge-hub
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install -e ".[datahub]"
+pip install -e ".[api,datahub,dev]"
 Copy-Item .env.example .env
 ```
 
@@ -35,5 +35,19 @@ datahub ingest -c datahub/ingestion/postgres-pgvector.yml
 python datahub/scripts/bootstrap_matismart_datahub.py
 ```
 
-For CI, configure repository secrets `DATAHUB_GMS_URL`, `DATAHUB_TOKEN`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DATABASE`, `POSTGRES_USERNAME`, and `POSTGRES_PASSWORD`.
+## Local API
 
+```powershell
+docker compose up --build
+```
+
+API endpoints:
+
+- `GET /healthz`
+- `POST /v1/documents`
+- `POST /v1/approvals/{document_version_id}`
+- `POST /v1/query`
+
+The current API is a contract-first skeleton. It does not yet connect to Microsoft Graph, PostgreSQL, Gemini, or DataHub at runtime.
+
+For CI, configure repository secrets `DATAHUB_GMS_URL`, `DATAHUB_TOKEN`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DATABASE`, `POSTGRES_USERNAME`, and `POSTGRES_PASSWORD`.
