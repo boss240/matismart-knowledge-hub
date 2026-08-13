@@ -1,0 +1,47 @@
+domains:
+  - id: product_knowledge
+    name: Product Knowledge
+    description: Product specifications, manuals, feature definitions, and lifecycle knowledge.
+    owners:
+      - urn:li:corpGroup:matismart-product
+  - id: technical_documentation
+    name: Technical Documentation
+    description: Engineering, integration, architecture, deployment, and operational documentation.
+    owners:
+      - urn:li:corpGroup:matismart-engineering
+  - id: customer_projects
+    name: Customer Projects
+    description: Customer project documents, implementation records, delivery notes, and accepted outputs.
+    owners:
+      - urn:li:corpGroup:matismart-projects
+  - id: ai_knowledge
+    name: AI Knowledge
+    description: RAG datasets, prompts, AI outputs, embeddings, citations, and approved AI knowledge assets.
+    owners:
+      - urn:li:corpGroup:matismart-ai
+  - id: energy_assets
+    name: Energy Assets
+    description: Energy equipment, assets, system components, performance data, and technical characteristics.
+    owners:
+      - urn:li:corpGroup:matismart-energy
+  - id: iot_tuya
+    name: IoT & Tuya
+    description: IoT integrations, Tuya devices, telemetry models, and automation knowledge.
+    owners:
+      - urn:li:corpGroup:matismart-iot
+  - id: ems
+    name: EMS
+    description: Energy management system knowledge, control logic, integrations, and operations.
+    owners:
+      - urn:li:corpGroup:matismart-ems
+  - id: commercial
+    name: Commercial
+    description: Offers, pricing logic, sales collateral, commercial policies, and partner information.
+    owners:
+      - urn:li:corpGroup:matismart-commercial
+  - id: regulatory
+    name: Regulatory
+    description: Standards, certificates, compliance materials, safety rules, and regulatory obligations.
+    owners:
+      - urn:li:corpGroup:matismart-compliance
+

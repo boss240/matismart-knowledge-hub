@@ -1,0 +1,11 @@
+source:
+  type: datahub-business-glossary
+  config:
+    file: datahub/metadata/glossary.yml
+
+sink:
+  type: datahub-rest
+  config:
+    server: "${DATAHUB_GMS_URL}"
+    token: "${DATAHUB_TOKEN}"
+

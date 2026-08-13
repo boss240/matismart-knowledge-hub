@@ -1,0 +1,16 @@
+[project]
+name = "matismart-knowledge-hub"
+version = "0.1.0"
+description = "Matismart Knowledge & AI Integration Hub metadata and governance repository."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+datahub = [
+  "acryl-datahub[postgres]>=0.14.0",
+  "pyyaml>=6.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

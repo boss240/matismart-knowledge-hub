@@ -1,0 +1,31 @@
+glossary:
+  name: Matismart Knowledge Glossary
+  description: Controlled business vocabulary for Matismart Knowledge Hub.
+  nodes:
+    - name: Source Governance
+      terms:
+        - name: OneDrive Source of Truth
+          description: The authoritative document source. DataHub catalogs metadata and lineage but does not replace OneDrive as the system of record.
+        - name: Canonical Document ID
+          description: Stable internal identifier that joins OneDrive file identity, document versions, chunks, embeddings, approvals, and citations.
+        - name: Document Version
+          description: Immutable version snapshot with source checksum, source revision, ingestion timestamp, and supersession state.
+    - name: AI Governance
+      terms:
+        - name: Approved Knowledge
+          description: Document content that completed engineer review and can be used by production AI surfaces.
+        - name: Citation
+          description: Required provenance reference from an AI answer to source document version and chunk.
+        - name: RAG Answer
+          description: AI answer generated from retrieved approved knowledge with citations and audit metadata.
+        - name: Engineer Review
+          description: Human approval step before AI-processed knowledge becomes published.
+    - name: Security
+      terms:
+        - name: Tenant
+          description: Isolation boundary for organizations or business units.
+        - name: Project
+          description: Scoped work area under a tenant with independent access, approvals, and knowledge assets.
+        - name: Security Zone
+          description: Access control boundary used to separate sensitive content and retrieval eligibility.
+

@@ -1,0 +1,20 @@
+tags:
+  - name: matismart
+    description: Matismart governed asset.
+  - name: source-onedrive
+    description: Asset originates from OneDrive source-of-truth content.
+  - name: ai-ready
+    description: Asset is approved for production AI retrieval.
+  - name: engineer-review-required
+    description: Asset requires engineer review before publication.
+  - name: restricted
+    description: Asset has restricted access or sensitive business content.
+  - name: pii-review
+    description: Asset must be checked for personal data before AI exposure.
+  - name: pgvector
+    description: Asset participates in vector search or embedding storage.
+  - name: knowledge-graph
+    description: Asset participates in entity/relationship knowledge graph.
+  - name: rag
+    description: Asset participates in retrieval-augmented generation.
+

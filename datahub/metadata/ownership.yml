@@ -1,0 +1,35 @@
+groups:
+  - urn: urn:li:corpGroup:matismart-product
+    display_name: Matismart Product
+    role: Business owner for product knowledge.
+  - urn: urn:li:corpGroup:matismart-engineering
+    display_name: Matismart Engineering
+    role: Technical owner for architecture, APIs, ingestion, processing, and platform reliability.
+  - urn: urn:li:corpGroup:matismart-projects
+    display_name: Matismart Projects
+    role: Owner for customer project knowledge.
+  - urn: urn:li:corpGroup:matismart-ai
+    display_name: Matismart AI
+    role: Owner for RAG, prompts, embeddings, model adapters, citations, and AI auditability.
+  - urn: urn:li:corpGroup:matismart-energy
+    display_name: Matismart Energy
+    role: Owner for energy asset knowledge.
+  - urn: urn:li:corpGroup:matismart-iot
+    display_name: Matismart IoT
+    role: Owner for IoT and Tuya knowledge.
+  - urn: urn:li:corpGroup:matismart-ems
+    display_name: Matismart EMS
+    role: Owner for energy management system knowledge.
+  - urn: urn:li:corpGroup:matismart-commercial
+    display_name: Matismart Commercial
+    role: Owner for commercial knowledge.
+  - urn: urn:li:corpGroup:matismart-compliance
+    display_name: Matismart Compliance
+    role: Owner for regulatory and compliance knowledge.
+
+ownership_policy:
+  default_owner: urn:li:corpGroup:matismart-engineering
+  technical_owner: urn:li:corpGroup:matismart-engineering
+  ai_owner: urn:li:corpGroup:matismart-ai
+  review_owner: urn:li:corpGroup:matismart-engineering
+

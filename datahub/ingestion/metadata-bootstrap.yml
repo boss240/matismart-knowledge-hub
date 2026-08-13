@@ -1,0 +1,9 @@
+# This recipe is a placeholder for metadata-as-code pipelines that use the
+# DataHub REST sink. The bootstrap script emits domains, tags, ownership,
+# knowledge datasets, and lineage from datahub/metadata/*.yml.
+sink:
+  type: datahub-rest
+  config:
+    server: "${DATAHUB_GMS_URL}"
+    token: "${DATAHUB_TOKEN}"
+

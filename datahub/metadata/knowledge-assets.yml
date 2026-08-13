@@ -1,0 +1,62 @@
+datasets:
+  - platform: onedrive
+    name: matismart.onedrive.documents
+    display_name: OneDrive Documents
+    description: Source-of-truth document corpus stored in Microsoft OneDrive.
+    domain: product_knowledge
+    tags: [matismart, source-onedrive]
+  - platform: microsoft_graph
+    name: matismart.microsoft_graph.delta_sync
+    display_name: Microsoft Graph Delta Sync
+    description: Microsoft Graph delta and webhook metadata for source file changes.
+    domain: technical_documentation
+    tags: [matismart, source-onedrive]
+  - platform: matismart_ingestion
+    name: matismart.ingestion.raw_documents
+    display_name: Raw Document Ingestion
+    description: Raw ingestion events, checksums, source versions, and normalized metadata.
+    domain: technical_documentation
+    tags: [matismart, engineer-review-required]
+  - platform: matismart_processing
+    name: matismart.processing.document_chunks
+    display_name: Document Processing and Chunks
+    description: Parsed document text, chunks, detected entities, and processing states.
+    domain: ai_knowledge
+    tags: [matismart, engineer-review-required]
+  - platform: postgres
+    name: matismart_knowledge.public.documents
+    display_name: Knowledge Documents Table
+    description: Canonical document records in PostgreSQL.
+    domain: ai_knowledge
+    tags: [matismart]
+  - platform: postgres
+    name: matismart_knowledge.public.document_chunks
+    display_name: Knowledge Document Chunks Table
+    description: Chunk records used by retrieval and citations.
+    domain: ai_knowledge
+    tags: [matismart, rag]
+  - platform: postgres
+    name: matismart_knowledge.public.embeddings
+    display_name: pgvector Embeddings Table
+    description: Vector embeddings linked to approved document chunks.
+    domain: ai_knowledge
+    tags: [matismart, pgvector, rag]
+  - platform: matismart_knowledge_graph
+    name: matismart.knowledge_graph.entities
+    display_name: Knowledge Graph Entities
+    description: Extracted entities and relationships from approved knowledge.
+    domain: ai_knowledge
+    tags: [matismart, knowledge-graph]
+  - platform: gemini
+    name: matismart.gemini.rag_generation
+    display_name: Gemini RAG Generation
+    description: Gemini adapter usage for RAG answers grounded in approved knowledge.
+    domain: ai_knowledge
+    tags: [matismart, rag]
+  - platform: matismart_ai_platform
+    name: matismart.ai_platform.answers
+    display_name: Matismart AI Platform Answers
+    description: User-facing AI answer events, citations, retrieval traces, and audit records.
+    domain: ai_knowledge
+    tags: [matismart, ai-ready, rag]
+
