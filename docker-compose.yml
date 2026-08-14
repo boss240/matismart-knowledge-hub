@@ -22,7 +22,7 @@ services:
       dockerfile: infra/docker/api.Dockerfile
     environment:
       MATISMART_ENV: local
-      DATABASE_URL: postgresql://matismart:matismart_local_only@postgres:5432/matismart_knowledge
+      DATABASE_URL: postgresql+psycopg://matismart:matismart_local_only@postgres:5432/matismart_knowledge
     ports:
       - "8000:8000"
     depends_on:
@@ -31,4 +31,3 @@ services:
 
 volumes:
   postgres_data:
-

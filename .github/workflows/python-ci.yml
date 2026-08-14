@@ -1,0 +1,35 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - ".github/workflows/python-ci.yml"
+  pull_request:
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - ".github/workflows/python-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e ".[api,dev]"
+
+      - name: Run tests
+        run: pytest -q

@@ -35,6 +35,7 @@ class DocumentRecord(BaseModel):
     document_id: str
     tenant_id: str
     project_id: str
+    document_version_id: str | None = None
     title: str
     source_uri: str
     status: DocumentStatus
@@ -74,4 +75,3 @@ class QueryResponse(BaseModel):
     citations: list[Citation]
     tenant_id: str
     project_id: str
-

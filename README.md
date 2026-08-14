@@ -48,6 +48,15 @@ API endpoints:
 - `POST /v1/approvals/{document_version_id}`
 - `POST /v1/query`
 
-The current API is a contract-first skeleton. It does not yet connect to Microsoft Graph, PostgreSQL, Gemini, or DataHub at runtime.
+`POST /v1/documents` persists tenant, project, document, and document version records in PostgreSQL. Microsoft Graph, Gemini, and DataHub runtime integrations are still pending.
+
+## Tests
+
+```powershell
+pip install -e ".[api,dev]"
+pytest -q
+```
+
+The document registration tests use SQLite dependency overrides, so they do not require a live PostgreSQL instance.
 
 For CI, configure repository secrets `DATAHUB_GMS_URL`, `DATAHUB_TOKEN`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DATABASE`, `POSTGRES_USERNAME`, and `POSTGRES_PASSWORD`.

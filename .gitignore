@@ -1,4 +1,6 @@
 .venv/
+.deps/
+.testdeps/
 __pycache__/
 *.pyc
 .env
@@ -8,4 +10,3 @@ dist/
 build/
 .pytest_cache/
 .mypy_cache/
-
