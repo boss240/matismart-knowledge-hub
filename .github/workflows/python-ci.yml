@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "apps/**"
+      - "alembic.ini"
+      - "database/alembic/**"
       - "packages/**"
       - "tests/**"
       - "pyproject.toml"
@@ -12,6 +14,8 @@ on:
   pull_request:
     paths:
       - "apps/**"
+      - "alembic.ini"
+      - "database/alembic/**"
       - "packages/**"
       - "tests/**"
       - "pyproject.toml"
@@ -30,6 +34,12 @@ jobs:
 
       - name: Install dependencies
         run: pip install -e ".[api,dev]"
+
+      - name: Validate Alembic migrations
+        run: |
+          alembic history --verbose
+          alembic upgrade head --sql > /tmp/matismart_alembic.sql
+          test -s /tmp/matismart_alembic.sql
 
       - name: Run tests
         run: pytest -q

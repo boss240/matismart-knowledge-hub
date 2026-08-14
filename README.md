@@ -41,6 +41,8 @@ python datahub/scripts/bootstrap_matismart_datahub.py
 docker compose up --build
 ```
 
+The API container runs `alembic upgrade head` before starting FastAPI.
+
 API endpoints:
 
 - `GET /healthz`
@@ -49,6 +51,22 @@ API endpoints:
 - `POST /v1/query`
 
 `POST /v1/documents` persists tenant, project, document, and document version records in PostgreSQL. Microsoft Graph, Gemini, and DataHub runtime integrations are still pending.
+
+## Database migrations
+
+Alembic is the source of truth for database schema changes.
+
+```powershell
+pip install -e ".[api,dev]"
+alembic upgrade head
+```
+
+Useful checks:
+
+```powershell
+alembic history --verbose
+alembic upgrade head --sql
+```
 
 ## Tests
 

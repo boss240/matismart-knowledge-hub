@@ -11,6 +11,7 @@ dependencies = []
 
 [project.optional-dependencies]
 api = [
+  "alembic>=1.13.0",
   "fastapi>=0.115.0",
   "psycopg[binary]>=3.2.0",
   "uvicorn[standard]>=0.30.0",
@@ -30,6 +31,7 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.setuptools.packages.find]
 include = ["apps*", "packages*"]
