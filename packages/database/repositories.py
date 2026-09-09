@@ -58,15 +58,49 @@ class DocumentRepository:
 
         self.session.commit()
 
-        return DocumentRecord(
-            document_id=document.canonical_document_id,
-            tenant_id=tenant.slug,
-            project_id=project.slug,
-            document_version_id=version.id,
-            title=document.title,
-            source_uri=document.source_uri,
-            status=DocumentStatus(document.status),
+        return self._to_record(document, tenant, project, version)
+
+    def get_document(self, tenant_slug: str, canonical_document_id: str) -> DocumentRecord | None:
+        statement = (
+            select(Document, Tenant, Project)
+            .join(Tenant, Document.tenant_id == Tenant.id)
+            .join(Project, Document.project_id == Project.id)
+            .where(
+                Tenant.slug == tenant_slug,
+                Document.canonical_document_id == canonical_document_id,
+            )
         )
+        row = self.session.execute(statement).first()
+        if row is None:
+            return None
+
+        document, tenant, project = row
+        version = self._latest_version(document.id)
+        return self._to_record(document, tenant, project, version)
+
+    def list_documents(
+        self,
+        tenant_slug: str,
+        project_slug: str | None = None,
+        limit: int = 100,
+        offset: int = 0,
+    ) -> list[DocumentRecord]:
+        statement = (
+            select(Document, Tenant, Project)
+            .join(Tenant, Document.tenant_id == Tenant.id)
+            .join(Project, Document.project_id == Project.id)
+            .where(Tenant.slug == tenant_slug)
+            .order_by(Document.created_at.desc(), Document.canonical_document_id.asc())
+            .limit(limit)
+            .offset(offset)
+        )
+        if project_slug is not None:
+            statement = statement.where(Project.slug == project_slug)
+
+        records: list[DocumentRecord] = []
+        for document, tenant, project in self.session.execute(statement).all():
+            records.append(self._to_record(document, tenant, project, self._latest_version(document.id)))
+        return records
 
     def _get_or_create_tenant(self, slug: str) -> Tenant:
         tenant = self.session.scalar(select(Tenant).where(Tenant.slug == slug))
@@ -86,6 +120,31 @@ class DocumentRepository:
             self.session.flush()
         return project
 
+    def _latest_version(self, document_id: str) -> DocumentVersion | None:
+        return self.session.scalar(
+            select(DocumentVersion)
+            .where(DocumentVersion.document_id == document_id)
+            .order_by(DocumentVersion.created_at.desc(), DocumentVersion.id.desc())
+            .limit(1)
+        )
+
+    @staticmethod
+    def _to_record(
+        document: Document,
+        tenant: Tenant,
+        project: Project,
+        version: DocumentVersion | None,
+    ) -> DocumentRecord:
+        return DocumentRecord(
+            document_id=document.canonical_document_id,
+            tenant_id=tenant.slug,
+            project_id=project.slug,
+            document_version_id=version.id if version else None,
+            title=document.title,
+            source_uri=document.source_uri,
+            status=DocumentStatus(document.status),
+        )
+
     @staticmethod
     def _fallback_checksum(payload: DocumentCreate) -> str:
         material = "|".join(
@@ -98,4 +157,3 @@ class DocumentRepository:
             ]
         )
         return sha256(material.encode("utf-8")).hexdigest()
-
