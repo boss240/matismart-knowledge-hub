@@ -2,6 +2,8 @@
 
 Production service skeleton for Matismart Knowledge & AI Integration Hub.
 
+Detailed product description: [docs/product/product-description.md](docs/product/product-description.md)
+
 ## Governance principle
 
 - OneDrive is the source of truth for business and technical documents.
@@ -47,10 +49,12 @@ API endpoints:
 
 - `GET /healthz`
 - `POST /v1/documents`
+- `GET /v1/documents/{id}`
+- `GET /v1/documents`
 - `POST /v1/approvals/{document_version_id}`
 - `POST /v1/query`
 
-`POST /v1/documents` persists tenant, project, document, and document version records in PostgreSQL. Microsoft Graph, Gemini, and DataHub runtime integrations are still pending.
+`POST /v1/documents` persists tenant, project, document, and document version records in PostgreSQL. `GET /v1/documents/{id}` and `GET /v1/documents` read registered document records by tenant and optional project context. Microsoft Graph, Gemini, and DataHub runtime integrations are still pending.
 
 ## Database migrations
 
