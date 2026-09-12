@@ -4,6 +4,10 @@ Production service skeleton for Matismart Knowledge & AI Integration Hub.
 
 Detailed product description: [docs/product/product-description.md](docs/product/product-description.md)
 
+Ukrainian documentation index: [docs/documentation-index-ua.md](docs/documentation-index-ua.md)
+
+Latest Ukrainian technical assignment: [docs/specification/latest-technical-assignment-ua.md](docs/specification/latest-technical-assignment-ua.md)
+
 ## Governance principle
 
 - OneDrive is the source of truth for business and technical documents.
